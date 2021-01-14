@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import ArtistBox from './ArtistBox';
+import { Actions } from 'react-native-router-flux'
+
+
 
 export default class ArtistList extends Component<Props> {
-        
+    constructor(props) {
+        super(props)
+        this.state = {
+            artists: null
+        }
+    }
+    componentDidMount() {
+        this.updateDataSource(this.props.artists);
+    }
 
-    render() {
-        const renderItem = ({item}) => (
-            <TouchableOpacity 
-            onPress={() => goDetailView(item.name, item.image)}
-            >
-                <ArtistBox image={item.image} name={item.name}></ArtistBox>
-            </TouchableOpacity>
-          );
-          const goDetailView = (artistName1, artistImage1) => {
-              Actions.detail({artistName: artistName1, artistImage: artistImage1});
-          }
+    componentWillReceivedNewProps(newProps) {
+        if (newProps.artists !== this.props.artists) {
+            this.updateDataSource(newProps.artists)
+        }
+    }
+    updateDataSource(data) {
+        this.setState({
+            artists:data
+        }
+        )};
+
+        renderItem = (artists) => {
+            return   <ArtistBox artists={artists}></ArtistBox>
+        };
+    render(){
+        const dataArtist = this.props.artists;
           return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView>
               <FlatList
-                data={this.artists}
-                renderItem={renderItem}
+                data={dataArtist}
+                renderItem={this.renderItem}
                 keyExtractor={item => item.id}
               />
             </SafeAreaView>
@@ -30,20 +46,14 @@ export default class ArtistList extends Component<Props> {
     }
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-});
-
 
  /*
     
-
+<TouchableOpacity 
+            onPress={() => goDetailView(artists)}
+            >
+                <ArtistBox artists={artists}></ArtistBox>
+            </TouchableOpacity> 
 
 constructor(props){
         super(props)

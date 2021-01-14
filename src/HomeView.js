@@ -5,6 +5,34 @@ import {getMusicData} from './api-client'
 
 export default class HomeView extends Component {
     state = {
+        dataArtist: null
+    }
+    
+    componentDidMount() {
+        getMusicData().then(data => this.setState({ dataArtist: data }))
+    }
+
+
+    render() {
+        const artists = this.state.dataArtist
+        return(
+            <View style={StyleSheet.container}>
+                {artists && <ArtistList artists={artists}/>}
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        margin: 1
+    
+    }
+    
+})
+/*
+export default class HomeView extends Component {
+    state = {
         artists: null 
     }
     
@@ -33,3 +61,4 @@ const styles = StyleSheet.create({
     
 })
 
+*/

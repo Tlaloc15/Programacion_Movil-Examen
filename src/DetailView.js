@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import ArtistList from './ArtistList';
 
-export default class ArtistBox extends Component<Props> {
-    render(artistName, artistImage) {
-    console.log(artistName, artistImage);
-    return (
-        <View style={styles.artistBox}>
-            <Image style={styles.image} source={{ uri: artistImage }} />
-            <View style={styles.info}>
-                <Text style={styles.name}>{artistName}</Text>
-            </View>
-        </View>
-    )
-}
+export default class DetailView extends Component <Props> {
+    state = {
+        artists: null
     }
+    componentDidMount() {
+        this.setState({artists:[this.props.artistDetails]});
+        
+     
+    }
+    
+render(){
+    <View style={styles.artistBox}>
+    <Image style={styles.image} source={{uri: artists.image}}/>
+    <View style={styles.info}>
+        <Text style={styles.name}>{artists.name}</Text> 
+    </View>
+    </View>
+    console.log(this.state.artists)
+    const artists = this.state.artists;
+    return(
+        <View>
+{artists && <ArtistList artist={artists}/>}
+        </View>
+        );
+}
+}
 
 const styles = StyleSheet.create({
     artistBox: {
@@ -26,7 +40,7 @@ const styles = StyleSheet.create({
             height: 1,
             width: -2
         },
-        elevation: 2
+        elevation:2
     },
     image: {
         width: 150,
@@ -36,7 +50,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     name: {
         fontSize: 20,

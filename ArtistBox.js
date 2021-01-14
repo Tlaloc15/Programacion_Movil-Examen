@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions} from 'react-native-router-flux'
 
 export default class ArtistBox extends Component<Props> {
 
-    goDetailView=(artists)=>{
-        Actions.goDetailView({DetailView:artists})
-            }
+    onPressArtist=(artists)=>{
+        Actions.detail({artistDetails: artists})
+            }        
     
     render() {
         const artists = this.props.artists.item;
@@ -14,7 +14,7 @@ export default class ArtistBox extends Component<Props> {
 
 
         return (
-            <TouchableOpacity onPress={()=>this.goDetailView(artists)} key={artists.id} >
+            <TouchableOpacity onPress={()=>this.onPressArtist(artists)} key={artists.id} >
             <View style={styles.artistBox}>
             <Image style={styles.image} source={{uri: artists.image}}/>
             <View style={styles.info}>

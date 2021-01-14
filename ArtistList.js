@@ -28,7 +28,7 @@ export default class ArtistList extends Component<Props> {
         )};
 
         renderItem = (artists) => {
-            return  <ArtistBox artists={artists}></ArtistBox>
+            return   <ArtistBox artists={artists}></ArtistBox>
         };
     render(){
         const dataArtist = this.props.artists;
